@@ -7,12 +7,13 @@ on:
 
 jobs:  #By default the jobs run in parallel
   sonarqube:
-      runs-on: ubuntu-latest
-      steps:
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v3
         with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
+
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
         env:
@@ -22,7 +23,8 @@ jobs:  #By default the jobs run in parallel
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
+      
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         env:
