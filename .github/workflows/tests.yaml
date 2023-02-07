@@ -2,7 +2,7 @@ name: Tests for the code
 
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
     types: [opened, synchronize, reopened]
 
 jobs:  #By default the jobs run in parallel
@@ -24,7 +24,7 @@ jobs:  #By default the jobs run in parallel
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         env:
