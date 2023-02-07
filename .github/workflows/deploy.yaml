@@ -1,0 +1,22 @@
+name: Build and push
+
+on:
+  merge:
+    branches: [ "main" ]
+
+jobs:
+    - name: Render Amazon ECS task definition
+      id: render-web-container
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: wordpress
+        image: wordpress:latest
+        environment-variables: "LOG_LEVEL=info"
+
+    - name: Deploy to Amazon ECS service
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.render-web-container.outputs.task-definition }}
+        service: my-service
+        cluster: my-cluster
